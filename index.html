@@ -58,9 +58,11 @@
   </style>
 </head>
 <body>
+ <audio id="bgMusic" loop preload="auto">
+   <source src="assets/music.flac" type="audio/mpeg">
+ </audio>
   <section id="cover" class="screen">
     <div class="paper">
-      <!-- 演示用“连笔路径”，可换成你自己的 SVG path。注意：不是字体轮廓。 -->
       <div class="signature-wrap">
 <svg id="handwriting-first" class="signature" xmlns="http://www.w3.org/2000/svg" viewBox="210 55 124 59" fill="none" stroke="#b75d70" stroke-width="1.28" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="（迟到的）">
 <path d="M218.102,60.288 C218.163,60.104 218.124,59.961 217.984,59.857 C217.887,59.786 217.728,59.745 217.509,59.734 C217.289,59.724 217.102,59.764 216.946,59.854 C216.790,59.944 216.624,60.104 216.449,60.332 C216.273,60.561 216.137,60.775 216.041,60.976 C215.945,61.176 215.846,61.416 215.743,61.697 C215.640,61.977 215.534,62.311 215.424,62.700 C215.313,63.088 215.216,63.545 215.132,64.071 C215.048,64.597 214.975,65.227 214.913,65.960 C214.851,66.694 214.814,67.501 214.801,68.381 C214.788,69.262 214.801,70.130 214.840,70.986 C214.879,71.841 214.963,72.662 215.093,73.449 C215.224,74.235 215.376,74.994 215.548,75.727 C215.721,76.460 215.906,77.079 216.103,77.586 C216.300,78.093 216.495,78.522 216.688,78.873 C216.974,79.394 217.358,79.917 217.840,80.443"></path>
@@ -130,7 +132,6 @@
     const spinButton = document.querySelector('#spin');
     const showEnter = () => enter.classList.add('ready');
     if (window.Vivus) {
-      // 第一段先写（迟到的），停顿 800 毫秒，再写生日快乐！
       const secondWriting = new Vivus('handwriting-second', {
         type: 'oneByOne', duration: 150, start: 'manual'
       }, showEnter);
@@ -156,12 +157,10 @@
         itemLabelAlign: 'center',
         pointerAngle: 0,
         isInteractive: false,
-        // 0 代表无阻力；待机时用很低速度持续转动。
         rotationResistance: 0,
         lineColor: '#fffaf6',
         lineWidth: 3,
         onRest: (event) => {
-          // 待机停止不算抽奖；只有点击抽奖按钮才会揭晓。
           if (!spinning) return;
           spinning = false;
           spinButton.disabled = false;
@@ -171,36 +170,34 @@
       });
       spinButton.disabled = false;
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        wheel.spin(12); // 待机旋转速度（度/秒）；0=不自动转
+        wheel.spin(12);
       }
-    }
-    enter.addEventListener('click', async () => {
-      document.querySelector('#cover').style.display='none';
-      document.querySelector('#game').style.display='flex';
-      // 等字体加载后再绘制 canvas 转盘，避免第一次出现系统默认字体。
-      if (document.fonts) {
-        try {
-          await Promise.race([
-            document.fonts.load('16px "ZCOOL XiaoWei"'),
-            new Promise(resolve => setTimeout(resolve, 2200))
-          ]);
-        } catch (error) { console.warn('使用备用字体', error); }
-      }
-      initWheel();
+    }   
+enter.addEventListener('click', () => {
+  const music = document.querySelector('#bgMusic');
+
+  music.volume = 0.5;
+  music.play().catch(err => {
+    console.log('音乐播放被浏览器阻止：', err);
+  });
+
+  document.querySelector('#cover').style.display = 'none';
+  document.querySelector('#game').style.display = 'flex';
+  initWheel();
+});
     });
     spinButton.addEventListener('click', () => {
       if(!wheel || spinning) return;
-      wheel.stop(); // 先停下待机旋转，再执行固定中奖动画
+      wheel.stop();
       spinning=true;
       spinButton.disabled=true;
-      // 纯前端演示。奖品有实际价值时不可依赖这里保证公平、防作弊。
       const winner = 0;
       wheel.spinToItem(winner, 4800, true, 6, 1);
     });
     document.querySelector('#close').addEventListener('click', () => {
       document.querySelector('#result').classList.remove('open');
       if (wheel && !spinning && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        wheel.spin(12); // 关闭中奖弹窗后恢复缓慢旋转
+        wheel.spin(12); 
       }
     });
   </script>
