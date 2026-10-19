@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#f4e7df" />
   <title>生日快乐亲爱的♡</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
-    body { margin:0; font-family: 'ZCOOL XiaoWei', 'Songti SC', 'STSong', serif; color:#694b50; background:#f4e7df; }
+    body { margin:0; font-family: 'PingFang SC','Microsoft YaHei',sans-serif; color:#694b50; background:#f4e7df; }
     .screen { position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:32px 22px; text-align:center; overflow:hidden; }
     #cover { background:linear-gradient(160deg,rgba(250,232,226,.55),rgba(235,192,194,.6)),url('assets/background.jpg') center/cover; }
     .paper { background:rgba(255,251,249,.74); border:1px solid rgba(255,255,255,.85); box-shadow:0 22px 70px #a87d873b; backdrop-filter:blur(6px); padding:36px 25px; border-radius:28px; width:min(100%,410px); }
@@ -19,12 +16,7 @@
     .signature-wrap { position:relative; width:100%; aspect-ratio:124 / 59; margin:22px auto 10px; }
     .signature-wrap .signature { position:absolute; inset:0; width:100%; height:100%; margin:0; }
     .signature path { fill:none; stroke:#b75d70; stroke-width:1.28; stroke-linecap:round; stroke-linejoin:round; }
-    .caption { font-size:18px; line-height:1.9; letter-spacing:.09em; }
-    #game h1, .modal h2 { font-family:'ZCOOL XiaoWei','Songti SC',serif; font-weight:400; letter-spacing:.11em; }
-    button { font-family:'ZCOOL XiaoWei','Songti SC',serif; letter-spacing:.09em; }
-    .wheel-shell { filter:drop-shadow(0 16px 21px rgba(95,45,65,.2)); }
-    .hub { background:#fff8ed; box-shadow:0 0 0 5px rgba(255,255,255,.55),0 2px 12px #0002; }
-    #wheel { touch-action:pan-y; }
+    .caption { font-size:16px; line-height:1.9; }
     button { border:0; color:white; background:#b96e80; border-radius:999px; padding:14px 32px; font-size:16px; cursor:pointer; box-shadow:0 9px 22px #b96e8050; }
     button:disabled { opacity:.5; cursor:not-allowed; }
     #enter { opacity:0; pointer-events:none; transition:opacity .8s; margin-top:16px; }
@@ -42,7 +34,7 @@
    background-repeat: no-repeat;
    }
 
-    #game h1 { margin:0 0 5px; font-size:25px; color: #ffffff; }
+    #game h1 { margin:0 0 5px; font-size:25px; }
     #game p { margin:0 0 22px; line-height:1.6; }
     .wheel-shell { position:relative; width:min(84vw,375px); aspect-ratio:1; margin:0 auto 24px; }
     #wheel { position:absolute; inset:0; }
@@ -149,20 +141,16 @@
         items: prizes.map(label => ({label})),
         itemBackgroundColors: colors,
         itemLabelColors: ['#6c4853'],
-        itemLabelFont: 'ZCOOL XiaoWei, Songti SC, serif',
-        itemLabelFontSizeMax: 23,
+        itemLabelFont: 'PingFang SC, Microsoft YaHei, sans-serif',
+        itemLabelFontSizeMax: 17,
         itemLabelRadius: .64,
         itemLabelRadiusMax: .32,
         itemLabelAlign: 'center',
         pointerAngle: 0,
         isInteractive: false,
-        // 0 代表无阻力；待机时用很低速度持续转动。
-        rotationResistance: 0,
         lineColor: '#fffaf6',
         lineWidth: 3,
         onRest: (event) => {
-          // 待机停止不算抽奖；只有点击抽奖按钮才会揭晓。
-          if (!spinning) return;
           spinning = false;
           spinButton.disabled = false;
           document.querySelector('#prizeText').textContent = '当然是' + prizes[event.currentIndex] +'了😌';
@@ -170,39 +158,21 @@
         }
       });
       spinButton.disabled = false;
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        wheel.spin(12); // 待机旋转速度（度/秒）；0=不自动转
-      }
     }
-    enter.addEventListener('click', async () => {
+    enter.addEventListener('click', () => {
       document.querySelector('#cover').style.display='none';
       document.querySelector('#game').style.display='flex';
-      // 等字体加载后再绘制 canvas 转盘，避免第一次出现系统默认字体。
-      if (document.fonts) {
-        try {
-          await Promise.race([
-            document.fonts.load('16px "ZCOOL XiaoWei"'),
-            new Promise(resolve => setTimeout(resolve, 2200))
-          ]);
-        } catch (error) { console.warn('使用备用字体', error); }
-      }
       initWheel();
     });
     spinButton.addEventListener('click', () => {
       if(!wheel || spinning) return;
-      wheel.stop(); // 先停下待机旋转，再执行固定中奖动画
       spinning=true;
       spinButton.disabled=true;
       // 纯前端演示。奖品有实际价值时不可依赖这里保证公平、防作弊。
       const winner = 0;
       wheel.spinToItem(winner, 4800, true, 6, 1);
     });
-    document.querySelector('#close').addEventListener('click', () => {
-      document.querySelector('#result').classList.remove('open');
-      if (wheel && !spinning && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        wheel.spin(12); // 关闭中奖弹窗后恢复缓慢旋转
-      }
-    });
+    document.querySelector('#close').addEventListener('click', () => document.querySelector('#result').classList.remove('open'));
   </script>
 </body>
 </html>
