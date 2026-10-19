@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4e7df" />
+  <meta name="theme-color" content="#f5f1ec" />
   <title>生日快乐亲爱的♡</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
     * { box-sizing: border-box; }
     body { margin:0; font-family: 'ZCOOL XiaoWei', 'Songti SC', 'STSong', serif; color:#694b50; background:#f4e7df; }
     .screen { position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:32px 22px; text-align:center; overflow:hidden; }
-    #cover { background:linear-gradient(160deg,rgba(250,232,226,.55),rgba(235,192,194,.6)),url('assets/background.jpg') center/cover; }
+    #cover { background:linear-gradient(160deg,rgba(250,232,226,.55),rgba(235,192,194,.6)),url('assets/cover.jpg') center/cover; }
     .paper { background:rgba(255,251,249,.74); border:1px solid rgba(255,255,255,.85); box-shadow:0 22px 70px #a87d873b; backdrop-filter:blur(6px); padding:36px 25px; border-radius:28px; width:min(100%,410px); }
     .eyebrow { letter-spacing:.24em; font-size:11px; text-transform:uppercase; }
     .signature { display:block; width:100%; height:auto; margin:22px auto 10px; overflow:visible; }
@@ -36,7 +36,7 @@
        rgba(255, 255, 255, 0.25),
        rgba(255, 255, 255, 0.25)
      ),
-     url('assets/background.jpg');
+     url('assets/cover.jpg');
    background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
@@ -44,7 +44,7 @@
 
     #musicToggle { position:fixed; top:max(16px, env(safe-area-inset-top)); right:16px; z-index:50; font-size:13px; padding:10px 14px; background:rgba(145,80,102,.88); backdrop-filter:blur(5px); }
     #game h1 { margin:0 0 5px; font-size:25px; color:#ffffff; position:relative; top:-24px; text-shadow:0 2px 12px rgba(87,48,63,.32); }
-    #surprise { display:none; background:linear-gradient(155deg,rgba(250,232,226,.68),rgba(235,192,194,.75)),url('assets/background.jpg') center/cover; }
+    #surprise { display:none; background:linear-gradient(155deg,rgba(250,232,226,.68),rgba(235,192,194,.75)),url('assets/cover.jpg') center/cover; }
     .love-letter { background:rgba(255,251,249,.88); border:1px solid rgba(255,255,255,.9); border-radius:28px; padding:42px 28px; width:min(100%,410px); box-shadow:0 22px 70px rgba(110,67,80,.18); backdrop-filter:blur(9px); animation:letter-in .8s ease both; }
     .love-letter .heart { font-size:38px; margin-bottom:18px; }
     .love-letter h2 { font-size:27px; font-weight:400; letter-spacing:.12em; color:#995466; margin:0 0 24px; }
@@ -64,15 +64,85 @@
     .modal h2 { font-size:26px; }
     .muted { font-size:12px; opacity:.65; margin-top:30px; }
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition-duration:.01ms!important;}}
+  <style>
+
+:root{--ink:#403b39;--muted:#8e827c;--paper:#f8f5ef;--rose:#b07e7b;--stroke:#dcd4ca}
+html{background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:'ZCOOL XiaoWei','Songti SC',serif;-webkit-font-smoothing:antialiased}
+.screen{padding:clamp(24px,5vw,56px) 22px;min-height:100svh;overflow:hidden}
+#cover{background:#f0ebe5;display:flex;position:relative}
+#cover:before{content:'';position:absolute;inset:0 0 0 47%;background:url('assets/cover.jpg') center 43%/cover no-repeat;filter:saturate(.76) contrast(.95)}
+#cover:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#f0ebe5 0%,#f0ebe5 40%,rgba(240,235,229,.87) 52%,rgba(240,235,229,.04) 75%);pointer-events:none}
+.paper{position:relative;z-index:1;background:#faf8f3;backdrop-filter:none;box-shadow:0 18px 65px rgba(65,47,47,.09);border:1px solid #fff9f3;border-radius:2px;padding:30px clamp(23px,3.3vw,42px) 42px;width:min(93vw,465px);margin-right:min(29vw,370px);text-align:left}
+.micro-head{display:flex;justify-content:space-between;gap:12px;padding-bottom:20px;border-bottom:1px solid var(--stroke);font:10px/1.4 Arial,sans-serif;letter-spacing:.16em;color:var(--muted)}
+.signature-wrap{margin:24px auto 3px;aspect-ratio:124/59}
+.signature path.ink-stroke{stroke:#977273;stroke-width:1.16}
+.caption{font-size:clamp(20px,2.4vw,27px);margin:4px 0 0;letter-spacing:.08em;line-height:1.5}
+.small-note{font:italic 15px/1.5 'DM Serif Display',Georgia,serif;color:#9b8480;margin:8px 0 27px}
+button{background:#47423f;color:#faf8f4;border:1px solid #47423f;border-radius:2px;box-shadow:none;font-size:14px;letter-spacing:.13em;padding:16px 26px;min-height:48px;transition:background .18s,color .18s,transform .18s}
+button:not(:disabled):hover{background:#775c5b;border-color:#775c5b;transform:translateY(-1px)}
+button:focus-visible{outline:2px solid #b48481;outline-offset:4px}
+#enter{margin:0;opacity:0;transition:opacity .8s ease;max-width:100%;width:100%;display:flex;justify-content:space-between;align-items:center}
+#enter.ready{opacity:1}
+#game{background:#f8f5ef;gap:0;justify-content:center}
+.game-heading{text-align:center;margin:0 0 29px}
+.mini-index,.modal-index{font:10px/1.6 Arial,sans-serif;letter-spacing:.2em;color:var(--muted)}
+#game h1{color:var(--ink);font-size:clamp(32px,5vw,43px);font-weight:400;letter-spacing:.11em;margin:15px 0 10px;top:0;text-shadow:none}
+#game .game-heading p{font-size:14px;color:var(--muted);margin:0;letter-spacing:.09em}
+.wheel-shell{width:min(79vw,345px);margin:0 auto 30px;filter:none;outline:1px solid #cfc5bd;outline-offset:9px;border-radius:50%;}
+.pointer{top:-17px;border-left:9px solid transparent;border-right:9px solid transparent;border-top:22px solid #65514e;filter:none}
+.hub{width:43px;height:43px;background:#f9f5ec;border:4px solid #cab3ae;box-shadow:0 1px 4px #433b351b}
+#spin{min-width:190px}
+.page-foot{font:9px Arial,sans-serif;letter-spacing:.21em;color:#ab9f98;margin-top:35px}
+#musicToggle{position:fixed;top:max(18px,env(safe-area-inset-top));right:20px;background:#f8f5efeb;color:#514946;border:1px solid #d8cfc7;box-shadow:none;border-radius:2px;font:10px Arial,sans-serif;letter-spacing:.1em;padding:10px 12px;z-index:50;min-height:0}
+#musicToggle:hover{background:#ede4df;border-color:#c8beb7;color:#514946;transform:none}
+#result{background:rgba(31,27,25,.45);backdrop-filter:blur(3px)}
+.modal{background:#faf7f1;border:1px solid #fff9f2;border-radius:2px;box-shadow:0 20px 70px rgba(19,15,13,.12);width:min(100%,380px);padding:37px 34px 34px;text-align:left}
+.result-star{font-size:34px;color:#b68d83;margin:18px 0 6px}
+.modal h2{font-size:27px;line-height:1.4;letter-spacing:.07em;font-weight:400;margin:0 0 16px;color:var(--ink)}
+.modal p{color:#8b716b;font-size:17px;line-height:1.8;margin-bottom:30px}
+#close{width:100%;display:flex;align-items:center;justify-content:space-between}
+#surprise{background:#efebe5;align-items:center;justify-content:center;padding:clamp(20px,5vw,55px);overflow:visible}
+.letter-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);width:min(100%,880px);min-height:540px;box-shadow:0 20px 80px rgba(37,29,27,.10);background:#faf8f3}
+.letter-photo{position:relative;background:url('assets/background.jpg') center 48%/cover no-repeat;min-height:520px}
+.photo-counter{position:absolute;left:22px;bottom:21px;background:rgba(248,245,239,.93);padding:10px 12px;font:10px Arial,sans-serif;letter-spacing:.17em;color:#554b47}
+.love-letter{width:auto;background:transparent;box-shadow:none;backdrop-filter:none;border:0;border-radius:0;padding:clamp(28px,5vw,55px) clamp(24px,4vw,49px);text-align:left;animation:none;display:flex;flex-direction:column;justify-content:center}
+.love-letter h2{color:var(--ink);font-size:clamp(23px,2.6vw,29px);letter-spacing:.035em;line-height:1.6;margin:25px 0 25px}
+.love-letter p{font-size:15px;letter-spacing:.04em;line-height:2.05;color:#645955;margin-bottom:16px}
+.love-letter em{font-family:'DM Serif Display',Georgia,serif;font-style:italic;color:#a37470;font-size:19px}
+.letter-divider{width:35px;height:1px;background:#b9a5a0;margin:11px 0 20px}
+.love-letter .signoff{color:#806d66;font-size:13px;line-height:2.1;margin:0}
+.love-letter .signoff strong{font-weight:400;font-size:17px;color:#514340}
+.love-letter .signoff span{font-family:Georgia,serif;margin-left:8px;color:#9e7570}
+@media(max-width:700px){
+ #cover{padding:22px 17px 26px;justify-content:flex-end}
+ #cover:before{inset:0 0 38% 0;background-position:center 40%}
+ #cover:after{background:linear-gradient(0deg,#f0ebe5 0%,#f0ebe5 17%,rgba(240,235,229,.62) 43%,rgba(240,235,229,0) 72%)}
+ .paper{margin:0;width:min(100%,430px);padding:21px 25px 27px}
+ .micro-head{padding-bottom:12px}
+ .signature-wrap{margin:2px auto -1px;max-width:300px}
+ .caption{font-size:21px}
+ .small-note{margin:5px 0 16px;font-size:13px}
+ #game{padding:45px 22px}
+ .game-heading{margin:0 0 30px}
+ .page-foot{margin-top:34px}
+ .letter-layout{grid-template-columns:1fr;max-width:440px}
+ .letter-photo{min-height:290px;background-position:center 45%}
+ .love-letter{padding:35px 30px 45px}
+ #surprise{padding:20px 15px}
+}
+@media(max-width:370px){.wheel-shell{width:min(76vw,300px)}.paper{padding:18px 20px 24px}.signature-wrap{max-width:260px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}button:hover{transform:none}}
   </style>
 </head>
 <body>
  <audio id="bgMusic" loop preload="auto">
    <source src="assets/music.mp3" type="audio/mpeg">
  </audio>
-  <button id="musicToggle" type="button" aria-label="播放或暂停背景音乐">♫</button>
+  <button id="musicToggle" type="button" aria-label="播放或暂停背景音乐">♫ OFF</button>
   <section id="cover" class="screen">
     <div class="paper">
+      <div class="micro-head"><span>FOR FRAISE MUSE</span><span>01 / 03</span></div>
       <div class="signature-wrap">
 <svg id="handwriting-first" class="signature" xmlns="http://www.w3.org/2000/svg" viewBox="210 55 124 59" fill="none" stroke="#b75d70" stroke-width="1.28" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="（迟到的）">
 <path class="ink-stroke" d="M218.102,60.288 C218.163,60.104 218.124,59.961 217.984,59.857 C217.887,59.786 217.728,59.745 217.509,59.734 C217.289,59.724 217.102,59.764 216.946,59.854 C216.790,59.944 216.624,60.104 216.449,60.332 C216.273,60.561 216.137,60.775 216.041,60.976 C215.945,61.176 215.846,61.416 215.743,61.697 C215.640,61.977 215.534,62.311 215.424,62.700 C215.313,63.088 215.216,63.545 215.132,64.071 C215.048,64.597 214.975,65.227 214.913,65.960 C214.851,66.694 214.814,67.501 214.801,68.381 C214.788,69.262 214.801,70.130 214.840,70.986 C214.879,71.841 214.963,72.662 215.093,73.449 C215.224,74.235 215.376,74.994 215.548,75.727 C215.721,76.460 215.906,77.079 216.103,77.586 C216.300,78.093 216.495,78.522 216.688,78.873 C216.974,79.394 217.358,79.917 217.840,80.443"></path class="ink-stroke">
@@ -118,35 +188,35 @@
 <path class="ink-stroke" d="M328.145,102.947 C327.991,103.417 327.912,103.856 327.908,104.263 C327.905,104.538 327.923,104.736 327.963,104.856 C328.003,104.976 328.088,105.068 328.218,105.133 C328.400,105.224 328.587,104.814 328.778,103.903"></path class="ink-stroke">
 </svg>
 </div>
-
-      <p class="caption">生日快乐宝贝🥰</p>
-      <button id="enter">到底是什么神秘礼物呢？ →</button>
+      <button id="enter">礼物到底是什么呢？ <span aria-hidden="true">↗</span></button>
     </div>
   </section>
   <section id="game" class="screen">
-    <h1>是抽奖转盘！😌</h1>
-    <p></p>
+    <div class="game-heading"><div class="mini-index">02 / 03 &nbsp; · &nbsp; LPVE EXPOSURE</div><h1>是神秘转盘！</h1><p>来试试运气吧😌</p></div>
     <div class="wheel-shell"><div class="pointer" aria-hidden="true"></div><div id="wheel"></div><div class="hub" aria-hidden="true"></div></div>
-    <button id="spin" disabled>抽！</button>
+    <button id="spin" disabled>CLICK HERE <span aria-hidden="true">↗</span></button>
   </section>
   <section id="surprise" class="screen" aria-label="Letter">
-    <article class="love-letter">
-      <div class="heart" aria-hidden="true"></div>
-      <h2>亲爱的Fraise Muse小姐</h2>
-      <p>生日快乐！🥰</p>
-      <p>抱歉在生日当天回不来😩</p>
-      <p>单个礼物还是太单薄了，完全不够表达我的爱意<br>所以这次是ALL轮盘！</p>
-      <p class="signoff">姜饼人😈</p>
-    </article>
+    <div class="letter-layout">
+      <div class="letter-photo" role="img" aria-label="我们的纪念照片"><span class="photo-counter">03 / 03 · JUST THE TWO OF US</span></div>
+      <article class="love-letter">
+        <h2>亲爱的 Fraise Muse 小姐，</h2>
+        <p>生日快乐！</p>
+        <p>抱歉在生日当天回不来😩</p>
+        <p>单个礼物还是太单薄了，完全不够表达我的爱意。<br>所以这次是 <em>ALL</em> 轮盘！</p>
+        <div class="letter-divider"></div>
+        <p class="signoff">一直爱你的，<br><strong>姜饼人😈</strong></p>
+      </article>
+    </div>
   </section>
   <div id="result" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
-    <div class="modal"><div style="font-size:34px">💌</div><h2 id="resultTitle">生日快乐🥰</h2><p id="prizeText"></p><button id="close">亲亲宝贝！</button></div>
+    <div class="modal"><div class="modal-index">THE RESULT &nbsp; / &nbsp; 01</div><div class="result-star">✳</div><h2 id="resultTitle">当然是ALL了！</h2><p id="prizeText"></p><button id="close">亲亲宝贝！ <span aria-hidden="true">↗</span></button></div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vivus@0.4.6/dist/vivus.min.js"></script>
   <script type="module">
     import {Wheel} from "https://cdn.jsdelivr.net/npm/spin-wheel@5.0.2/dist/spin-wheel-esm.js";
     const prizes = ['ALL', 'iPhone 18 Pro Max', '手作蓝晒贺卡', 'd20骰子盲盒', '艾玛莫莉玩偶香薰', '神秘游戏兑换码'];
-    const colors = ['#f4b6b6','#fff0d4','#d9bddc','#f7d7c9','#d5e6dd','#f2d8ea'];
+    const colors = ['#e3b9b4','#f4e7d9','#c8c4cf','#ebd4c9','#d5dfd2','#e9dce0'];
     const enter = document.querySelector('#enter');
     const spinButton = document.querySelector('#spin');
     const showEnter = () => enter.classList.add('ready');
@@ -168,35 +238,35 @@
       wheel = new Wheel(document.querySelector('#wheel'), {
         items: prizes.map(label => ({label})),
         itemBackgroundColors: colors,
-        itemLabelColors: ['#6c4853'],
+        itemLabelColors: ['#534744'],
         itemLabelFont: 'ZCOOL XiaoWei, Songti SC, serif',
-        itemLabelFontSizeMax: 23,
+        itemLabelFontSizeMax: 21,
         itemLabelRadius: .64,
         itemLabelRadiusMax: .32,
         itemLabelAlign: 'center',
         pointerAngle: 0,
         isInteractive: false,
         rotationResistance: 0,
-        lineColor: '#fffaf6',
+        lineColor: '#fffaf3',
         lineWidth: 3,
         onRest: (event) => {
           if (!spinning) return;
           spinning = false;
           spinButton.disabled = false;
-          document.querySelector('#prizeText').textContent = '当然是' + prizes[event.currentIndex] +'了😌';
+          document.querySelector('#prizeText').textContent = prizes[event.currentIndex] === 'ALL' ? '我爱你🥰🥰🥰' : '你的礼物：' + prizes[event.currentIndex];
           document.querySelector('#result').classList.add('open');
         }
       });
       spinButton.disabled = false;
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        wheel.spin(12);
+       wheel.spin(12);
       }
     }   
 const music = document.querySelector('#bgMusic');
     const musicToggle = document.querySelector('#musicToggle');
     music.volume = 0.5;
-    music.addEventListener('play', () => { musicToggle.textContent = '♫'; });
-    music.addEventListener('pause', () => { musicToggle.textContent = '♫'; });
+    music.addEventListener('play', () => { musicToggle.textContent = '♫ ON'; });
+    music.addEventListener('pause', () => { musicToggle.textContent = '♫ OFF'; });
     music.addEventListener('error', () => { musicToggle.textContent = '⚠ 音乐未加载'; });
     function playMusic() {
       music.play().catch(err => {
